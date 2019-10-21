@@ -1,0 +1,51 @@
+{
+  "name": "webpack-sass-boilerplate",
+  "version": "0.0.1",
+  "description": "Webpack boilerplate with sass",
+  "main": "./src/index.js",
+  "author": "NB",
+  "license": "MIT",
+  "scripts": {
+    "build": "cross-env NODE_ENV=production webpack --config ./config/webpack.config.js -p --optimize-minimize",
+    "start": "cross-env NODE_ENV=dev webpack-dev-server --config ./config/webpack.config.js --open",
+    "dev": "cross-env NODE_ENV=dev webpack-dev-server --config ./config/webpack.config.js",
+    "dev-browsersync": "cross-env browsersync=true NODE_ENV=dev webpack-dev-server --config ./config/webpack.config.js"
+  },
+  "devDependencies": {
+    "ajv-keywords": "^2.1.1",
+    "clean-webpack-plugin": "^0.1.17",
+    "copy-webpack-plugin": "^4.4.2",
+    "cross-env": "^6.0.3",
+    "css-loader": "^0.28.7",
+    "eslint": "^4.11.0",
+    "extract-text-webpack-plugin": "^4.0.0-beta.0",
+    "file-loader": "^4.2.0",
+    "html-loader": "^0.5.5",
+    "html-webpack-plugin": "^3.2.0",
+    "lodash-webpack-plugin": "^0.11.4",
+    "mini-css-extract-plugin": "^0.8.0",
+    "node-sass": "^4.12.0",
+    "postcss": "^6.0.14",
+    "postcss-css-variables": "^0.8.0",
+    "postcss-cssnext": "^3.0.2",
+    "postcss-import": "^11.0.0",
+    "postcss-loader": "^2.0.8",
+    "postcss-mixins": "^6.2.0",
+    "postcss-nested": "^2.1.2",
+    "sass-loader": "^6.0.6",
+    "style-loader": "^1.0.0",
+    "stylelint": "8.x.x",
+    "stylelint-config-standard": "^17.0.0",
+    "ts-loader": "^6.2.0",
+    "typescript": "^3.6.4",
+    "uglifyjs-webpack-plugin": "^2.2.0",
+    "webpack": "^4.41.2",
+    "webpack-cli": "^3.3.9",
+    "webpack-dev-server": "^3.8.2"
+  },
+  "dependencies": {
+    "lodash": "^4.17.15",
+    "reset.scss": "^1.0.0",
+    "rxjs": "^6.5.3"
+  }
+}
