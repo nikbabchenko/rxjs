@@ -40,7 +40,8 @@ const config = {
   context: projectDir + "/src",
   entry: {
     index: "./index.ts",
-    balance: "./balance.ts"
+    balance: "./balance.ts",
+    autocomplete: "./autocomplete.ts"
   },
   resolve: {
     extensions: [".ts", ".js"]
@@ -150,6 +151,11 @@ const config = {
       chunks: ["balance"],
       template: "./balance.html",
       filename: 'balance.html'
+    }),
+    new HtmlWebpackPlugin({
+      chunks: ["autocomplete"],
+      template: "./autocomplete.html",
+      filename: 'autocomplete.html'
     }),
     new LodashModuleReplacementPlugin(),
     new CopyWebpackPlugin(

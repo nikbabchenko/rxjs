@@ -12,26 +12,23 @@ function init() {
   const email: HTMLInputElement = document.querySelector("#email");
   const userNavBar = document.querySelector("#navbarSupportedContent");
 
-  initAuthService();
+  // auth
+  const userInLocalStorage = !!localStorage.getItem(authorizationToken);
+  const isAuthorized$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(userInLocalStorage);
+  isAuthorized$.subscribe(isAuthorized => {
+    setAuthState(isAuthorized);
+  });
+
   initFormEvents();
 
   function initFormEvents() {
     fromEvent(loginForm, "submit").subscribe(ev => {
       ev.preventDefault();
-      setAuthState(true);
+      isAuthorized$.next(true);
     });
 
     fromEvent(logOutButton, "click").subscribe(ev => {
-      setAuthState(false);
-    });
-  }
-
-  function initAuthService() {
-    const isAuthorized = !!localStorage.getItem(authorizationToken);
-    const isAuthorized$: Observable<boolean> = new BehaviorSubject<boolean>(isAuthorized);
-
-    isAuthorized$.subscribe(isAuthorized => {
-      setAuthState(isAuthorized);
+      isAuthorized$.next(false);
     });
   }
 
