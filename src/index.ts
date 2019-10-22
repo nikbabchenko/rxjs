@@ -1,27 +1,46 @@
-import './assets/styles/styles.scss';
-import {timer, fromEvent} from 'rxjs';
+import "./assets/styles/styles.scss";
+import { Observable, of } from "rxjs";
+import { ajax } from "rxjs/ajax";
+import { switchMap, catchError, mergeMap, zip } from "rxjs/operators";
 
+const userIds$: Observable<number> = new Observable(observer => {
+  observer.next(1);
+  setTimeout(() => {
+    observer.next(2);
+  }, 50);
 
-document.addEventListener('click', e => {
-    console.log('--e', e);
+  setTimeout(() => {
+    observer.next(3);
+  }, 50);
+
+  setTimeout(() => {
+    observer.next(4);
+  }, 300);
+
+  setTimeout(() => {
+    observer.next(5);
+  }, 2000);
 });
 
-fromEvent(document, 'click')
-    .subscribe(e => console.log('--e from rxjs', e));
+const fetchUser = (userId: number): Observable<any> =>
+  ajax.getJSON(`https://jsonplaceholder.typicode.com/users/${userId}`);
 
+userIds$
+  .pipe(
+    switchMap(userId => fetchUser(userId)),
+    catchError(err => {
+      console.log("--error occured", err);
+      return of(err);
+    })
+  )
+  .subscribe(data => console.log(data));
 
-import {filter, take, tap} from 'rxjs/operators';
-import { multiplyBy } from './multiply-by-ten';
-
-timer(0, 300)
-    .pipe(
-        take(12),
-        filter(x => x > 5),
-        multiplyBy(10),
-        tap(x => console.log(x))
-    ).subscribe()
-
-// 6---7---8---9---10---11---|
-
-
-
+// userIds$
+// .pipe(
+//   mergeMap(userId => fetchUser(userId)),
+//   catchError(err => {
+//     console.log("--error occured", err);
+//     return of(err);
+//   })
+// )
+// .subscribe(data => console.log(data));
