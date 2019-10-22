@@ -39,7 +39,8 @@ console.log("NODE_ENV:", process.env.NODE_ENV);
 const config = {
   context: projectDir + "/src",
   entry: {
-    index: "./index.ts"
+    index: "./index.ts",
+    balance: "./balance.ts"
   },
   resolve: {
     extensions: [".ts", ".js"]
@@ -144,6 +145,11 @@ const config = {
     new HtmlWebpackPlugin({
       chunks: ["index"],
       template: "./index.html"
+    }),
+    new HtmlWebpackPlugin({
+      chunks: ["balance"],
+      template: "./balance.html",
+      filename: 'balance.html'
     }),
     new LodashModuleReplacementPlugin(),
     new CopyWebpackPlugin(

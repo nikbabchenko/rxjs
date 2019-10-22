@@ -1,2 +1,22 @@
-@import '~reset.scss/reset.scss';
+html, body {
+    font-family: 'Open Sans', Arial, sans-serif;
+}
 
+.profile {
+    display: none;
+    padding-top: 40px;
+
+    &.is-active {
+        display: block;
+    }
+}
+
+.login-form {
+    padding-top: 40px;
+}
+
+.is-hidden {
+    &.is-hidden {
+        display: none !important;
+    }
+}

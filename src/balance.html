@@ -28,10 +28,10 @@
         <span class="navbar-toggler-icon"></span>
       </button>
 
-      <div class="collapse navbar-collapse is-hidden" id="navbarSupportedContent">
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item">
-            <a class="nav-link" href="/balance.html"
+            <a class="nav-link active" href="/balance.html"
               >Balance <span class="sr-only">(current)</span></a
             >
           </li>
@@ -40,41 +40,23 @@
           </li>
         </ul>
       </div>
-    </nav>
-    <!-- header layout  end -->
+    </nav> <!-- header layout  end -->
     <div class="container">
       <div class="row">
         <div class="col-md-5">
-          <form class="login-form">
+          <form>
             <div class="form-group">
-              <label for="email">Email address</label>
-              <input
-                type="email"
-                class="form-control"
-                id="email"
-                aria-describedby="emailHelp"
-                placeholder="Enter email"
-              />
-              <small id="emailHelp" class="form-text text-muted"
-                >We'll never share your email with anyone else.</small
-              >
+              <label for="exampleInputEmail1">UAH</label>
+              <input id="uah" type="number" class="form-control"" placeholder="UAH" />
             </div>
             <div class="form-group">
-              <label for="password">Password</label>
-              <input
-                type="password"
-                class="form-control"
-                id="password"
-                placeholder="Password"
+              <label for="exampleInputEmail1">USD</label>
+              <input id="usd" type="number" class="form-control"" placeholder="USD"
               />
             </div>
-            <button id="login-button" type="submit" class="btn btn-primary">Submit</button>
           </form>
 
-          <div class="profile">
-            <p>Hello, <span id="user"></span>!</p>
-            <button type="button" class="btn btn-danger logout">Logout</button>
-          </div>
+          <p>Your current balance is: <span id="balance"></span></p>
         </div>
       </div>
     </div>
