@@ -1,9 +1,10 @@
 {
   "compilerOptions": {
-    "outDir": "./dist/",
+    "outDir": "./build/",
     "sourceMap": true,
     "noImplicitAny": false,
     "module": "commonjs",
-    "allowJs": true
+    "allowJs": true,
+    "target": "esnext"
   }
 }

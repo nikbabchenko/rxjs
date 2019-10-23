@@ -1,20 +1,19 @@
 import "./assets/styles/styles.scss";
-import { BehaviorSubject, Observable, fromEvent } from "rxjs";
+import { fromEvent } from "rxjs";
+import authService from './services/auth.service';
 
 document.addEventListener("DOMContentLoaded", init);
 
 function init() {
-  const authorizationToken = "$$$user";
   const loginForm = document.querySelector(".login-form");
   const profile = document.querySelector(".profile");
   const logOutButton = document.querySelector(".logout");
   const user = document.querySelector("#user");
   const email: HTMLInputElement = document.querySelector("#email");
   const userNavBar = document.querySelector("#navbarSupportedContent");
+  const isAuthorized$ = authService.isAuthorized$;
 
-  // auth
-  const userInLocalStorage = !!localStorage.getItem(authorizationToken);
-  const isAuthorized$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(userInLocalStorage);
+
   isAuthorized$.subscribe(isAuthorized => {
     setAuthState(isAuthorized);
   });
@@ -34,16 +33,12 @@ function init() {
 
   function setAuthState(isAuthorized: boolean) {
     if (isAuthorized) {
-      if (!localStorage.getItem(authorizationToken)) {
-        localStorage.setItem(authorizationToken, email.value);
-      }
+      authService.userToken = email.value;
       showProfile();
-      (user as HTMLElement).innerText = localStorage.getItem(
-        authorizationToken
-      );
+      (user as HTMLElement).innerText = authService.userToken;
     } else {
       showLoginForm();
-      localStorage.removeItem(authorizationToken);
+      authService.logout();
     }
   }
 

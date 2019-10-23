@@ -2,10 +2,24 @@ import "./assets/styles/styles.scss";
 
 import { fromEvent, combineLatest } from "rxjs";
 import { map, startWith } from "rxjs/operators";
+import authService from './services/auth.service';
 
 document.addEventListener("DOMContentLoaded", init);
 
 function init() {
+  initUser();
+  initBalance();
+}
+
+
+function initUser() {
+  if (!authService.isAuthorized) {
+    window.location.href = window.location.origin;
+  }
+}
+
+
+function initBalance() {
   const uahInput: HTMLInputElement = document.querySelector("#uah");
   const usdInput: HTMLInputElement = document.querySelector("#usd");
   const balance = document.querySelector("#balance");
