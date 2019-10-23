@@ -1,0 +1,17 @@
+.autocomplete {
+    position: relative;
+    margin: 20px;
+    min-width: 250px;
+
+    &__list {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 100%;
+    }
+}
+
+#autocomplete__input {
+    display: block;
+    width: 100%;
+}
