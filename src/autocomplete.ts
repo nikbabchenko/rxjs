@@ -2,7 +2,7 @@ import "./assets/styles/styles.scss";
 import "./assets/styles/autocomplete.scss";
 import { fromEvent, Observable } from "rxjs";
 import { ajax } from "rxjs/ajax";
-import { switchMap, map, distinctUntilChanged, debounceTime, filter, pluck } from "rxjs/operators";
+import { switchMap, map, distinctUntilChanged, debounceTime, filter, pluck, tap } from "rxjs/operators";
 import { IUser } from "./models/user.model";
 
 
@@ -28,6 +28,7 @@ function init() {
             // TODO: filter by min length of the 5
             debounceTime(100),
             distinctUntilChanged(),
+            tap(userName => console.log('--next value', userName)),
             switchMap(userName => fetchUserByName(userName))
         )
         .subscribe(renderAutocomplete)
@@ -35,7 +36,6 @@ function init() {
 
 
 function renderAutocomplete(users: IUser[]) {
-    console.log('--users', users);
 
     const usersListHtml = users.map(item => {
         return addUserColumn(item.username);
