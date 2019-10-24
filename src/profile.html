@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+  </head>
+
+  <body>
+    <!-- header layout start -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="/">Home</a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div
+        class="collapse navbar-collapse is-hidden"
+        id="navbarSupportedContent"
+      >
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="/balance.html"
+              >Balance <span class="sr-only">(current)</span></a
+            >
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/autocomplete.html">Autocomplete</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <!-- header layout  end -->
+    <div class="container py-4 my-2">
+      <div class="row">
+        <div class="col-md-4 pr-md-5">
+          <img
+            class="w-100 rounded border"
+            src="https://i.pravatar.cc/300"
+          />
+        </div>
+        <div class="col-md-8">
+          <div class="d-flex align-items-center">
+            <h2 class="font-weight-bold m-0 username">
+              {{ name }}
+            </h2>
+            <address
+              class="m-0 pt-2 pl-0 pl-md-4 font-weight-light text-secondary user-address"
+            >
+              <i class="fa fa-map-marker"></i>
+              {{ address.street }} , {{ address.city }}
+            </address>
+          </div>
+          <p class="h5 text-primary mt-2 d-block font-weight-light">
+            Random User
+          </p>
+          <p class="lead mt-4 company-name">
+            {{ company.name }}
+          </p>
+          <section class="mt-5">
+            <h3 class="h6 font-weight-light text-secondary text-uppercase">
+
+            </h3>
+            <div class="d-flex align-items-center">
+              <strong class="h1 font-weight-bold m-0 mr-3">Zipcode: <span class="zip-code">{{ address.zipcode }}</strong>
+              <div>
+                <input
+                  data-filled="fa fa-2x fa-star mr-1 text-warning"
+                  data-empty="fa fa-2x fa-star-o mr-1 text-light"
+                  value="5"
+                  type="hidden"
+                  class="rating"
+                  data-readonly
+                />
+              </div>
+            </div>
+          </section>
+          <section class="mt-4">
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+              <li class="nav-item">
+                <a
+                  class="nav-link active"
+                  id="home-tab"
+                  data-toggle="tab"
+                  href="#home"
+                  role="tab"
+                  aria-controls="home"
+                  aria-selected="true"
+                >
+                  About
+                </a>
+              </li>
+              <li class="nav-item">
+                <a
+                  class="nav-link"
+                  id="profile-tab"
+                  data-toggle="tab"
+                  href="#profile"
+                  role="tab"
+                  aria-controls="profile"
+                  aria-selected="false"
+                >
+                  Reviews
+                </a>
+              </li>
+              <li class="nav-item">
+                <a
+                  class="nav-link"
+                  id="contact-tab"
+                  data-toggle="tab"
+                  href="#contact"
+                  role="tab"
+                  aria-controls="contact"
+                  aria-selected="false"
+                >
+                  Recent Projects
+                </a>
+              </li>
+            </ul>
+            <div class="tab-content py-4" id="myTabContent">
+              <div
+                class="tab-pane py-3 fade show active"
+                id="home"
+                role="tabpanel"
+                aria-labelledby="home-tab"
+              >
+                <h6 class="text-uppercase font-weight-light text-secondary">
+                  Contact Information
+                </h6>
+                <dl class="row mt-4 mb-4 pb-3">
+                  <dt class="col-sm-3">Website</dt>
+                  <dd class="col-sm-9 user-website">{{ website }}</dd>
+
+                  <dt class="col-sm-3">Company</dt>
+                  <dd class="col-sm-9 user-company">
+                    {{ company.name, company.catchPhrase }}
+                  </dd>
+                </dl>
+              </div>
+              <div
+                class="tab-pane fade"
+                id="profile"
+                role="tabpanel"
+                aria-labelledby="profile-tab"
+              >
+                ...
+              </div>
+              <div
+                class="tab-pane fade"
+                id="contact"
+                role="tabpanel"
+                aria-labelledby="contact-tab"
+              >
+                ...
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+
+    <!-- loader -->
+    <div class="fullscreen-loader text-primary">
+      <div class="spinner-border" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+    </div>
+    <!-- loader end -->
+
+    <!-- bootstrap -->
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+      integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+      integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+      crossorigin="anonymous"
+    ></script>
+    <!-- bootstrap end -->
+  </body>
+</html>

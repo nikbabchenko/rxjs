@@ -59,8 +59,7 @@
                   name="new Date()"
                   aria-describedby="passwordHelpInline"
                 />
-                <ul class="list-group autocomplete__list">
-                </ul>
+                <ul class="list-group autocomplete__list"></ul>
               </div>
               <small id="passwordHelpInline" class="text-muted">
                 Minimum 3 symbols
@@ -84,7 +83,28 @@
           </div>
         </div>
       </div>
+      <div class="row users-row"></div>
     </div>
+
+    <!-- loader -->
+    <div class="fullscreen-loader text-primary is-hidden">
+      <div class="spinner-border" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+    </div>
+    <!-- loader end -->
+
+    <template id="user-card">
+      <div class="col-md-3">
+        <div class="card">
+          <img src="" class="card-img-top user-card__image" alt="" />
+          <div class="card-body">
+            <h5 class="card-title user-card__title"></h5>
+            <a href="" class="btn btn-primary">Open User</a>
+          </div>
+        </div>
+      </div>
+    </template>
 
     <!-- bootstrap -->
     <script

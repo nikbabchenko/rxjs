@@ -41,7 +41,8 @@ const config = {
   entry: {
     index: "./index.ts",
     balance: "./balance.ts",
-    autocomplete: "./autocomplete.ts"
+    autocomplete: "./autocomplete.ts",
+    profile: "./profile.ts"
   },
   resolve: {
     extensions: [".ts", ".js"]
@@ -156,6 +157,11 @@ const config = {
       chunks: ["autocomplete"],
       template: "./autocomplete.html",
       filename: 'autocomplete.html'
+    }),
+    new HtmlWebpackPlugin({
+      chunks: ["profile"],
+      template: "./profile.html",
+      filename: 'profile.html'
     }),
     new LodashModuleReplacementPlugin(),
     new CopyWebpackPlugin(
