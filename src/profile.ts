@@ -1,5 +1,4 @@
 import "./assets/styles/styles.scss";
-import { ajax } from "rxjs/ajax";
 
 // TODO: fix navigation for logged user
 // TODO: get userId from query param, fetch users data from api by id, hide loader
