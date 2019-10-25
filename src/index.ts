@@ -11,6 +11,7 @@ function init() {
   const user = document.querySelector("#user");
   const email: HTMLInputElement = document.querySelector("#email");
   const userNavBar = document.querySelector("#navbarSupportedContent");
+  const unauthorizedNav = document.querySelector(".unauthorized");
   const isAuthorized$ = authService.isAuthorized$;
 
 
@@ -45,6 +46,7 @@ function init() {
   function showProfile() {
     loginForm.classList.add("is-hidden");
     profile.classList.add("is-active");
+    unauthorizedNav.classList.add('is-hidden');
     userNavBar.classList.remove("is-hidden");
   }
 
@@ -52,5 +54,6 @@ function init() {
     loginForm.classList.remove("is-hidden");
     profile.classList.remove("is-active");
     userNavBar.classList.add("is-hidden");
+    unauthorizedNav.classList.remove('is-hidden');
   }
 }

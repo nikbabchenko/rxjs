@@ -42,7 +42,8 @@ const config = {
     index: "./index.ts",
     balance: "./balance.ts",
     autocomplete: "./autocomplete.ts",
-    profile: "./profile.ts"
+    profile: "./profile.ts",
+    registration: "./registration.ts"
   },
   resolve: {
     extensions: [".ts", ".js"]
@@ -162,6 +163,11 @@ const config = {
       chunks: ["profile"],
       template: "./profile.html",
       filename: 'profile.html'
+    }),
+    new HtmlWebpackPlugin({
+      chunks: ["registration"],
+      template: "./registration.html",
+      filename: 'registration.html'
     }),
     new LodashModuleReplacementPlugin(),
     new CopyWebpackPlugin(
