@@ -11,8 +11,14 @@ const createObservables = source =>
   Object.entries(source).map(([key, value]) => {
     const input = document.querySelector(`#${key}`)
     return fromEvent(input, 'input')
-      .pipe(mapToTarget, startWith(value))
+      .pipe(
+        mapToTarget,
+        startWith(value),
+        map(value => ({ [key]: value }))
+      )
   })
+
+const mapToData = (values) => values.reduce((acc, val) => ({ ...acc, ...val }), {})
 
 function init() {
   const registrationForm = {
@@ -30,6 +36,7 @@ function init() {
   const formErrorsEl = document.querySelector(".form-errors");
   const isValidFormEl = document.querySelector('.is-valid-form')
   const formDataEl = document.querySelector('.form-data')
+  const formEl = document.querySelector('#registration-form')
   const registrationValidatoinShema = object().shape({
     username: string()
       .required()
@@ -65,11 +72,9 @@ function init() {
   const observables = createObservables(registrationForm)
 
   combineLatest(observables)
-    .pipe(map(([username, password, email, age]) => ({
-      username,
-      email,
-      password,
-      age,
-    })))
+    .pipe(map(mapToData))
     .subscribe(onFormChange)
+
+  fromEvent(formEl, 'submit')
+    .subscribe(e => e.preventDefault())
 }
