@@ -1,55 +1,64 @@
 import { number, object, string, ValidationError } from "yup";
+import { map, skip, tap } from "rxjs/operators";
+import { combineLatest } from "rxjs";
+import { createPipelineFromInput$ } from "./helpers/pipeline.helper";
+import { createDefaultState, FormError, RegistrationForm, RegistrationFormState } from "./models/form.registration";
 import "./assets/styles/styles.scss";
+
+const formErrorsEl = document.querySelector(".form-errors");
+const usernameElement = document.querySelector("#username") as HTMLInputElement;
+const emailElement = document.querySelector("#email") as HTMLInputElement;
+const passwordElement = document.querySelector("#password") as HTMLInputElement;
+const ageElement = document.querySelector("#age") as HTMLInputElement;
 
 document.addEventListener("DOMContentLoaded", init);
 
+const registrationValidationSchema = object().shape({
+  username: string().required("Username is required").min(4, "Should be more than 4 symbols"),
+  email: string().required("Email is required").email("Email is required"),
+  password: string().required("Password is required").min(4, "Password should be more than 4 symbols"),
+  age: number().required("Number is required").min(0)
+});
+const formData: RegistrationForm = {
+  username: usernameElement.value,
+  email: emailElement.value,
+  password: passwordElement.value,
+  age: Number(ageElement.value),
+}
+const formState: RegistrationFormState = createDefaultState();
+
 function init() {
-  const registrationForm = {
-    username: "",
-    password: "",
-    email: "",
-    age: ""
-  };
+  combineLatest(
+    createPipelineFromInput$(usernameElement),
+    createPipelineFromInput$(emailElement),
+    createPipelineFromInput$(passwordElement),
+    createPipelineFromInput$(ageElement),
+  ).pipe(
+    skip(1),
+    tap(([username, email, password, age]): void => {
+      formData.username = username;
+      formData.email = email;
+      formData.password = password;
 
-  // TODO:  On change of input fields show validation errors, form state - valid/invalid and formData
-  // TODO: create fromEvent listeners for username password etc., use mapToTarget, startWith and map to value => ({ [key]: value })
-  // TODO: then track form changes (like in balance.ts) and validate form, show errors, current form data on UI
-  // TIPS: you can use Object.keys, fromEvent, map, startWith, combineLatest, js reduce operator etc.
+      let ageNumber = parseInt(age);
+      if (isNaN(ageNumber)) {
+        formData.age = undefined;
+        return;
+      }
 
-  const formErrorsEl = document.querySelector(".form-errors");
-  const registrationValidatoinShema = object().shape({
-    username: string()
-      .required()
-      .min(4, "Should be more than 4 symbols"),
-    email: string()
-      .required()
-      .email("Email is required"),
-    password: string()
-      .required()
-      .min(4, "Password should be more than 4 symbols"),
-    age: number().required("Number is required")
-  });
-
-  // Example of validation, you have to create the same shape on change of validation fields
-  registrationValidatoinShema
-    .validate(
-      {
-        username: "wkdow",
-        email: "email@gmail.com",
-        password: "",
-        age: 2
-      },
-      { abortEarly: false }
-    )
-    .then(validData => {
-      console.log("--handle valid data", validData);
-      formErrorsEl.innerHTML = "";
-    })
-    .catch((validationError: ValidationError) => {
-      console.log("--errors", validationError);
-      const erorrsList = validationError.errors.map(
-        error => `<div class="alert alert-danger" role="alert">${error}</div>`
-      );
-      formErrorsEl.innerHTML = erorrsList.join("");
-    });
+      formData.age = ageNumber;
+    }),
+    map(_ => registrationValidationSchema.validate(formData, { abortEarly: false })),
+    tap(result => result
+      .then((_: any): void => {
+        formState.isValid = true;
+        formState.errors = [];
+      })
+      .catch((validationError: ValidationError): void => {
+        formState.isValid = false;
+        formState.errors = validationError.errors.map((error: string): FormError => {
+          return { error };
+        });
+      }))
+  ).subscribe(_ => formErrorsEl.innerHTML = formState.createSummaryHtml());
 }
