@@ -34,7 +34,7 @@
     "postcss-nested": "^2.1.2",
     "sass-loader": "^6.0.6",
     "style-loader": "^1.0.0",
-    "stylelint": "8.x.x",
+    "stylelint": "15.x.x",
     "stylelint-config-standard": "^17.0.0",
     "ts-loader": "^6.2.0",
     "typescript": "^3.6.4",
